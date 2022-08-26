@@ -8,16 +8,43 @@ const boxes = controls.nextElementSibling;
 
 document.querySelector("head").insertAdjacentHTML("beforeend", `<style> #boxes { display:flex; justify-content:center; align-items:center; flex-direction: column; gap:20px;}</style>`);
 
+inputNumber.addEventListener("input", onControls);
 buttonCreate.addEventListener("click", onButtonCreate);
 buttonDestroy.addEventListener("click", onButtonDestroy);
+controls.parentElement.addEventListener("keydown", isKeyPressed);
+
+
+function onControls(evt) {
+
+  if (evt.target === buttonDestroy) {
+    onButtonDestroy();
+    return;
+  }
+
+  if (evt.target === inputNumber) {
+    onButtonCreate(evt);
+    return;
+  }
+  if (evt.target === buttonCreate) {
+    onButtonCreate(evt);
+    return;
+  }
+}
 
 function onButtonCreate() {
-  if (boxes.children.length !== 0) destroyBoxes();
+  if (inputNumber.value === "") return alert("Please select a value!");
+  // if (boxes.children.length !== 0) destroyBoxes();
+  if (boxes.children.length) destroyBoxes();
   createBoxes(inputNumber.value);
 }
 
 function onButtonDestroy() {
+  if (!boxes.children.length) return alert("There is nothing to destroy!");
   destroyBoxes();
+}
+
+function isKeyPressed(evt) {
+  if (evt.code === "Escape") destroyBoxes();
 }
 
 function createBoxes(amount) {
@@ -26,7 +53,6 @@ function createBoxes(amount) {
   for (let i = 0; i < amount; i += 1) {
     elementDiv.push(`<div style="width:${30 + i * 10}px; height:${30 + i * 10}px; background-color:${getRandomHexColor()};"></div>`);
   }
-
   boxes.insertAdjacentHTML("beforeend", elementDiv.join(""));
 }
 
