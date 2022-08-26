@@ -17,7 +17,7 @@ function onSubmit(evt) {
         checkInputData(password);
         return alert("Please fill in all the fields.");
     }
-
+    console.log(dataForm);
     evt.currentTarget.reset();
 };
 
