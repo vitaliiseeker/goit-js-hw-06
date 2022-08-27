@@ -8,33 +8,15 @@ const boxes = controls.nextElementSibling;
 
 document.querySelector("head").insertAdjacentHTML("beforeend", `<style> #boxes { display:flex; justify-content:center; align-items:center; flex-direction: column; gap:20px;}</style>`);
 
-inputNumber.addEventListener("input", onControls);
+inputNumber.addEventListener("input", onButtonCreate);
 buttonCreate.addEventListener("click", onButtonCreate);
 buttonDestroy.addEventListener("click", onButtonDestroy);
-
-
-function onControls(evt) {
-  controls.parentElement.addEventListener("keydown", isKeyPressed);
-
-  if (evt.target === buttonDestroy) {
-    onButtonDestroy();
-    return;
-  }
-
-  if (evt.target === inputNumber) {
-    onButtonCreate(evt);
-    return;
-  }
-  if (evt.target === buttonCreate) {
-    onButtonCreate(evt);
-    return;
-  }
-}
 
 function onButtonCreate() {
   if (inputNumber.value === "") return alert("Please select a value!");
   if (boxes.children.length) destroyBoxes();
   createBoxes(inputNumber.value);
+  controls.parentElement.addEventListener("keydown", isKeyPressed);
 }
 
 function onButtonDestroy() {
