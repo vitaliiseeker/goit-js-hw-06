@@ -13,7 +13,7 @@ buttonCreate.addEventListener("click", onButtonCreate);
 buttonDestroy.addEventListener("click", onButtonDestroy);
 
 function onButtonCreate() {
-  if (!inputNumber.value || inputNumber.value <= 0) return alert("Please Choose a value greater than zero!");
+  if (!inputNumber.value || inputNumber.value < 0) return alert("Please Choose a value greater than zero!");
   if (boxes.children.length) destroyBoxes();
   createBoxes(inputNumber.value);
   controls.parentElement.addEventListener("keydown", isKeyPressed);

@@ -12,13 +12,13 @@ function onSubmit(evt) {
         password: password.value,
     };
 
-    if (dataForm.email == "" || dataForm.password == "") {
+    if (!dataForm.email || !dataForm.password) {
         checkInputData(email);
         checkInputData(password);
         return alert("Please fill in all the fields.");
     }
     console.log(dataForm);
-    evt.currentTarget.reset();
+    resetInputField(evt, email, password)
 };
 
 function checkInput(evt) {
@@ -26,6 +26,7 @@ function checkInput(evt) {
 };
 
 function checkInputData(inputField) {
+
     if (inputField.value) {
 
         inputField.classList.add("valid");
@@ -37,6 +38,12 @@ function checkInputData(inputField) {
         inputField.classList.remove("valid");
     }
 };
+
+function resetInputField(evt, email, password) {
+    evt.currentTarget.reset();
+    email.classList.remove("valid", "invalid");
+    password.classList.remove("valid", "invalid");
+}
 
 
 // Напиши скрипт управління формою логіна.
