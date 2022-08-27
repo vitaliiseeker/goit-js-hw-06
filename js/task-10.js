@@ -11,10 +11,10 @@ document.querySelector("head").insertAdjacentHTML("beforeend", `<style> #boxes {
 inputNumber.addEventListener("input", onControls);
 buttonCreate.addEventListener("click", onButtonCreate);
 buttonDestroy.addEventListener("click", onButtonDestroy);
-controls.parentElement.addEventListener("keydown", isKeyPressed);
 
 
 function onControls(evt) {
+  controls.parentElement.addEventListener("keydown", isKeyPressed);
 
   if (evt.target === buttonDestroy) {
     onButtonDestroy();
@@ -33,7 +33,6 @@ function onControls(evt) {
 
 function onButtonCreate() {
   if (inputNumber.value === "") return alert("Please select a value!");
-  // if (boxes.children.length !== 0) destroyBoxes();
   if (boxes.children.length) destroyBoxes();
   createBoxes(inputNumber.value);
 }
@@ -44,7 +43,10 @@ function onButtonDestroy() {
 }
 
 function isKeyPressed(evt) {
-  if (evt.code === "Escape") destroyBoxes();
+  if (evt.code === "Escape") {
+    destroyBoxes();
+    controls.parentElement.removeEventListener("keydown", isKeyPressed);
+  }
 }
 
 function createBoxes(amount) {

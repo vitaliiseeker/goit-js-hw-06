@@ -8,16 +8,19 @@ const refs = {
 //     ? "Anonymous" : evt.target.value);
 
 refs.input.addEventListener("input", inputChange);
-refs.input.parentElement.addEventListener("keydown", isKeyPressed);
 
 function inputChange(evt) {
+  refs.input.parentElement.addEventListener("keydown", isKeyPressed);
   evt.target.value ?
     onChange(evt.target.value) :
     toCleane();
 }
 
 function isKeyPressed(evt) {
-  if (evt.code === "Escape") toCleane();
+  if (evt.code === "Escape") {
+    toCleane();
+    refs.input.parentElement.removeEventListener("keydown", isKeyPressed);
+  }
 }
 
 function onChange(value) {
