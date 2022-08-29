@@ -2,10 +2,11 @@ const navEl = document.querySelector('#categories')
 
 console.log('Number of categories:', navEl.children.length);
 
-[...navEl.children].forEach(el => {
-  console.log('Category:', el.firstElementChild.textContent);
-  console.log('Elements:', el.lastElementChild.children.length);
+document.querySelectorAll(".item").forEach(el => {
+  console.log('Category:', el.querySelector("h2").textContent);
+  console.log('Elements:', el.querySelectorAll("li").length);
 });
+
 
 // Порахує і виведе в консоль кількість категорій в ul#categories, тобто елементів li.item.
 // Для кожного элемента li.item у спику ul#categories, знайде і виведе в консоль текст заголовку елемента(тегу < h2 >) і кількість елементів в категорії(усіх < li >, вкладених в нього).
@@ -22,3 +23,8 @@ console.log('Number of categories:', navEl.children.length);
 
 // Category: Technologies
 // Elements: 5
+
+// [...navEl.children].forEach(el => {
+//   console.log('Category:', el.firstElementChild.textContent);
+//   console.log('Elements:', el.lastElementChild.children.length);
+// });

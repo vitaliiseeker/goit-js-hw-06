@@ -1,13 +1,11 @@
 const counter = document.querySelector("#value");
-const ButtonDecreaseValue = document.querySelector("button[data-action='decrement']");
-const ButtonIncrementValue = document.querySelector("button[data-action='increment']");
-
+const buttonDecreaseValue = document.querySelector("button[data-action='decrement']");
+const buttonIncrementValue = document.querySelector("button[data-action='increment']");
 let counterValue = 0;
 
-ButtonDecreaseValue.addEventListener("click", onButtonDecrease);
-ButtonIncrementValue.addEventListener("click", onButtonIncrement);
-counter.parentElement.parentElement.addEventListener("keydown", isKeyPressed);
-// document.getElementsByTagName('body')[0].addEventListener("keydown", isKeyPressed); //---- another search option
+buttonDecreaseValue.addEventListener("click", onButtonDecrease);
+buttonIncrementValue.addEventListener("click", onButtonIncrement);
+document.addEventListener("keydown", isKeyPressed);
 
 function onButtonDecrease() {
   counterValue -= 1;

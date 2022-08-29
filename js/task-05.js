@@ -3,14 +3,10 @@ const refs = {
   span: document.querySelector("#name-output"),
 }
 
-// input.addEventListener("input", (evt) =>
-//   span.textContent = evt.target.value === ""
-//     ? "Anonymous" : evt.target.value);
-
 refs.input.addEventListener("input", inputChange);
 
 function inputChange(evt) {
-  refs.input.parentElement.addEventListener("keydown", isKeyPressed);
+  document.addEventListener("keydown", isKeyPressed);
   evt.target.value ?
     onChange(evt.target.value) :
     toCleane();
@@ -19,7 +15,7 @@ function inputChange(evt) {
 function isKeyPressed(evt) {
   if (evt.code === "Escape") {
     toCleane();
-    refs.input.parentElement.removeEventListener("keydown", isKeyPressed);
+    document.removeEventListener("keydown", isKeyPressed);
   }
 }
 

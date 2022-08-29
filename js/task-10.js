@@ -1,33 +1,32 @@
-const controls = document.querySelector("#controls");
-const inputNumber = controls.firstElementChild;
-const buttonCreate = inputNumber.nextElementSibling;
-// const buttonCreate = controls.children[1]; //--- another search option
-const buttonDestroy = buttonCreate.nextElementSibling;
-// const buttonDestroy = controls.children[2];  //---- another search option
-const boxes = controls.nextElementSibling;
+const refs = {
+  controls: document.querySelector("#controls"),
+  inputNumber: controls.firstElementChild,
+  buttonCreate: document.querySelector("button[data-create]"),
+  buttonDestroy: document.querySelector("button[data-destroy]"),
+  boxes: document.querySelector("#boxes"),
+}
+let numderDiv = 0;
 
 document.querySelector("head").insertAdjacentHTML("beforeend", `<style> #boxes { display:flex; justify-content:center; align-items:center; flex-direction: column; gap:20px;}</style>`);
 
-inputNumber.addEventListener("input", onButtonCreate);
-buttonCreate.addEventListener("click", onButtonCreate);
-buttonDestroy.addEventListener("click", onButtonDestroy);
+refs.buttonCreate.addEventListener("click", onButtonCreate);
+refs.buttonDestroy.addEventListener("click", onButtonDestroy);
 
 function onButtonCreate() {
-  if (!inputNumber.value || inputNumber.value < 0) return alert("Please Choose a value greater than zero!");
-  if (boxes.children.length) destroyBoxes();
-  createBoxes(inputNumber.value);
-  controls.parentElement.addEventListener("keydown", isKeyPressed);
+  if (!refs.inputNumber.value || refs.inputNumber.value < 0) return alert("Please Choose a value greater than zero!");
+  createBoxes(Number.parseInt(refs.inputNumber.value));
+  document.addEventListener("keydown", isKeyPressed);
 }
 
 function onButtonDestroy() {
-  if (!boxes.children.length) return alert("There is nothing to destroy!");
+  if (!refs.boxes.children.length) return alert("There is nothing to destroy!");
   destroyBoxes();
 }
 
 function isKeyPressed(evt) {
   if (evt.code === "Escape") {
     destroyBoxes();
-    controls.parentElement.removeEventListener("keydown", isKeyPressed);
+    document.removeEventListener("keydown", isKeyPressed);
   }
 }
 
@@ -35,13 +34,16 @@ function createBoxes(amount) {
 
   const elementDiv = [];
   for (let i = 0; i < amount; i += 1) {
-    elementDiv.push(`<div style="width:${30 + i * 10}px; height:${30 + i * 10}px; background-color:${getRandomHexColor()};"></div>`);
+    elementDiv.push(`<div style="width:${30 + (i + numderDiv) * 10}px; height:${30 + (i + numderDiv) * 10}px; background-color:${getRandomHexColor()};"></div>`);
   }
-  boxes.insertAdjacentHTML("beforeend", elementDiv.join(""));
+  numderDiv += amount;
+  refs.boxes.insertAdjacentHTML("beforeend", elementDiv.join(""));
 }
 
 function destroyBoxes() {
-  boxes.textContent = "";
+  refs.boxes.textContent = "";
+  refs.inputNumber.value = "";
+  numderDiv = 0;
 }
 
 function getRandomHexColor() {
