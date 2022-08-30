@@ -14,10 +14,9 @@ const images = [
 ];
 
 const navGallery = document.querySelector('.gallery');
+const elementsLiwithImage = images.reduce((acc, img) => acc += `<li class="item"> <img src=${img.url} alt="${img.alt}" width="400"></li>`, "");
 
-const elementLiwithImage = images.map(image => `<li class="item"> <img src=${image.url} alt=${image.alt} width=400px></li>`);
-
-navGallery.insertAdjacentHTML("beforeend", elementLiwithImage);
+navGallery.insertAdjacentHTML("beforeend", elementsLiwithImage);
 
 // navGallery.style.listStyle = "none";
 // navGallery.style.display = "flex";
